@@ -1,0 +1,15 @@
+.element__container {
+  margin: 25px 21px 31px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 1024px) {
+  .element__container {
+    margin: 10% 8% 10% 5%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .element__container {
+    margin: 25px 15px 31px 21px;
+  }
+}
