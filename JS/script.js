@@ -2,13 +2,13 @@ let popUp = document.querySelector('.popup');
 let edit = document.getElementById('edit');
 let closeBt = document.querySelector('.popup__close-button');
 
-popUp.classList.toggle('popup__opened');
+popUp.classList.toggle('popup_opened');
 
 function open() { 
-  popUp.classList.add('popup__opened');
+  popUp.classList.add('popup_opened');
 }
 function close() {
-  popUp.classList.remove('popup__opened');
+  popUp.classList.remove('popup_opened');
 }
 closeBt.addEventListener('click', close);
 
