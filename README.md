@@ -26,4 +26,4 @@ Mesto - сервис с интерактивной страницей.
 4. Улучшить адаптив.
 
 **Ссылка на сайт**
-*[Mesto](https://kameliatta.github.io/mesto/)
+* [Mesto](https://kameliatta.github.io/mesto/)
