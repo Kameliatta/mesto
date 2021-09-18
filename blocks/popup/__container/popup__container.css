@@ -8,6 +8,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+@media screen and (max-width: 600px) {
+  .popup__container {
+    width: 410px;
+  }
 }
 @media screen and (max-width: 500px) {
   .popup__container {

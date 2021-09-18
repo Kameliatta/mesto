@@ -10,7 +10,7 @@
   border: none;
   outline: none;
 }
-.like-button:active {
+.like-button:focus {
   background-image: url(../../images/like-active.svg);
 }
 .like-button:hover {

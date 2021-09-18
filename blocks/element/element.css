@@ -2,6 +2,7 @@
   max-width: 282px;
   background-color: white;
   border-radius: 10px;
+  display: grid;
 }
 @media screen and (max-width: 1024px) {
   .element {
@@ -11,11 +12,5 @@
 @media screen and (max-width: 450px) {
   .element {
     max-width: 100%;
-  }
-}
-@media screen and (max-width: 320px) {
-  .element {
-    height: 361px;
-    display: inline-grid;
   }
 }
