@@ -1,6 +1,6 @@
-.edit-button {
+.profile__edit-button {
   padding: 0;
-  background-image: url(../../images/edit.svg);
+  background-image: url(../../../images/edit.svg);
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 24px;
@@ -11,7 +11,7 @@
   border: 1px solid white;
 }
 @media screen and (max-width: 768px) {
-  .edit-button {
+  .profile__edit-button {
     margin-left: 2.3vw;
     margin-top: 11%;
     width: 20px;
@@ -19,7 +19,7 @@
   }
 }
 @media screen and (max-width: 450px) {
-  .edit-button {
+  .profile__edit-button {
     margin-left: 9px;
     margin-top: 8px;
     width: 18px;
