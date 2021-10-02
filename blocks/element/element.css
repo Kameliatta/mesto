@@ -3,6 +3,7 @@
   background-color: white;
   border-radius: 10px;
   display: grid;
+  position: relative;
 }
 @media screen and (max-width: 1024px) {
   .element {
