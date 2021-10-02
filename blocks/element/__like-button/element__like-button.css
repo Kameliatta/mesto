@@ -10,9 +10,6 @@
   border: none;
   outline: none;
 }
-.element__like-button:focus {
-  background-image: url(../../../images/like-active.svg);
-}
 .element__like-button:hover {
   opacity: .5;
   transition: opacity .3s;
