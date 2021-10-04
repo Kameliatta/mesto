@@ -1,7 +1,7 @@
 const popUpEdit = document.querySelector('#edit');
 const popUpAdd = document.querySelector('#add');
 const popUpImage = document.querySelector('#open-image');
-const popups = document.querySelectorAll('.popup');
+const popup = document.querySelector('.popup');
 const closeEditButton = document.querySelector('#close-edit');
 const closeAddButton = document.querySelector('#close-add');
 const openEditButton = document.querySelector('.profile__edit-button');
@@ -86,12 +86,12 @@ initialCards.forEach( (card) => {
   cardContainer.prepend(newCard);
 });
 
-function openPopup(popups) { 
-  popups.classList.add('popup_opened');
+function openPopup(popup) { 
+  popup.classList.add('popup_opened');
 }
 
-function closePopup(popups) {
-  popups.classList.remove('popup_opened');
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 function openEditPopup() { 
