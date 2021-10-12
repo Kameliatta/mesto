@@ -120,6 +120,23 @@ function addPopUpForm(evt) {
   closePopup(popUpAdd);
 };
 
+function keyHandler(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(popUpAdd);
+    closePopup(popUpEdit);
+    closePopup(popUpImage);
+  }
+} 
+
+function clickOverlay(evt) {
+  const overlay = document.querySelector('.popup_opened')
+  if (evt.target === overlay) {
+    closePopup(popUpAdd);
+    closePopup(popUpEdit);
+    closePopup(popUpImage);
+  }
+}
+
 openEditButton.addEventListener('click', () => openEditPopup(popUpEdit));
 openAddButton.addEventListener('click', () => openPopup(popUpAdd));
 closeEditButton.addEventListener('click', () => closePopup(popUpEdit));
@@ -127,3 +144,6 @@ closeAddButton.addEventListener('click', () => closePopup(popUpAdd));
 closeImage.addEventListener('click', () => closePopup(popUpImage));
 save.addEventListener('submit', formSubmitHandler);
 create.addEventListener('submit', addPopUpForm);
+document.addEventListener('keydown', keyHandler, true);
+document.removeEventListener('keydown', keyHandler);
+document.addEventListener('click', clickOverlay)
