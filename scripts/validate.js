@@ -4,10 +4,8 @@ const setEventListeners = (formElement, settings) => {
   
   Array.from(inputList).forEach(inputElement => {
     inputElement.addEventListener('input', () => {
-      const isFormValid = formElement.checkValidity();
-
       checkInputValidity(formElement, inputElement, settings);
-      toggleButtonState(submitButton, isFormValid, settings);
+      toggleButtonState(submitButton, formElement.checkValidity(), settings);
     })
   })
 
@@ -19,10 +17,10 @@ const setEventListeners = (formElement, settings) => {
 const toggleButtonState = (buttonElement, isActive, settings)  => {
   if (isActive) {
     buttonElement.classList.remove(settings.inactiveButtonClass);
-    buttonElement.disabled = false;
+    buttonElement.removeAttribute('disabled');
   } else {
     buttonElement.classList.add(settings.inactiveButtonClass);
-    buttonElement.disabled = true;
+    buttonElement.setAttribute('disabled', true);
   }
 }
 
