@@ -28,16 +28,6 @@
     </section>
     <section class="element-container">
       <ul class="elements">
-        <template id="element-container">
-          <li class="element">
-            <img class="element__image">
-            <button class="element__delete-button"></button>
-            <div class="element__container">
-              <h3 class="element__container-text"></h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </li>
-        </template>
       </ul>
     </section>
   </main>
@@ -71,7 +61,7 @@
           <input id="link" type="url" name="link" class="popup__info" placeholder="Ссылка на картинку" value="" required>
           <span id="link-error" class="popup__error-text"></span>
         </label>
-        <button id="create" type="submit" class="popup__submit popup__submit_disabled">Создать</button>
+        <button id="create" type="submit" class="popup__submit" disabled>Создать</button>
       </form>
     </div>
   </div>
@@ -85,7 +75,17 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
-  <script src="javascript/script.js"></script>
-  <script src="javascript/validate.js"></script>
+  <template id="element-container">
+    <li class="element">
+      <img class="element__image">
+      <button class="element__delete-button"></button>
+      <div class="element__container">
+        <h3 class="element__container-text"></h3>
+        <button type="button" class="element__like-button"></button>
+      </div>
+    </li>
+  </template>
+  <script src="scripts/validate.js"></script>
+  <script src="scripts/script.js"></script>
 </body>
 </html>
