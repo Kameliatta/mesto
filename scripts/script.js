@@ -53,7 +53,7 @@ function createCard(cardValue) {
   const deleteButton = card.querySelector('.element__delete-button');
   const likeButton = card.querySelector('.element__like-button');
   
-  const defaultPicture = card.querySelector('.element__image')
+  const defaultPicture = card.querySelector('.element__image');
   defaultPicture.src = cardValue.link;
   defaultPicture.alt = `Изображение ${cardValue.name}`;
 
