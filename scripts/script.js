@@ -14,11 +14,10 @@ const titleInput = document.querySelector('#title');
 const linkInput = document.querySelector('#link');
 const profileName = document.querySelector('.profile__name');
 const profileText = document.querySelector('.profile__text');
-const card = document.querySelector('.elements');
+const cardList = document.querySelector('.elements');
 const closeImage = document.querySelector('#close-image');
 const bigImage = document.querySelector('#big-image');
 const textImage = document.querySelector('#image-text');
-const submitBtn = document.querySelector('#create');
 
 const initialCards = [
   {
@@ -49,15 +48,15 @@ const initialCards = [
 
 function createCard(cardValue) {
   const cardsTemplate = document.querySelector('#element-container').content;
-  const card = cardsTemplate.querySelector('.element').cloneNode(true);
-  const deleteButton = card.querySelector('.element__delete-button');
-  const likeButton = card.querySelector('.element__like-button');
+  const cardList = cardsTemplate.querySelector('.element').cloneNode(true);
+  const deleteButton = cardList.querySelector('.element__delete-button');
+  const likeButton = cardList.querySelector('.element__like-button');
   
-  const defaultPicture = card.querySelector('.element__image');
+  const defaultPicture = cardList.querySelector('.element__image');
   defaultPicture.src = cardValue.link;
   defaultPicture.alt = `Изображение ${cardValue.name}`;
 
-  card.querySelector('.element__container-text').textContent = cardValue.name;
+  cardList.querySelector('.element__container-text').textContent = cardValue.name;
 
   function addLike(evt) {
     evt.target.classList.toggle('active');
@@ -77,23 +76,22 @@ function createCard(cardValue) {
   deleteButton.addEventListener('click', removeCard);
   defaultPicture.addEventListener('click', openImagePopup);
   
-  return card;
+  return cardList;
 };
 
 initialCards.forEach( (element) => {
   const newCard = createCard(element);
-  card.append(newCard);
+  cardList.append(newCard);
 });
 
 function openPopup(popup) { 
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupKey);
-  submitBtn.classList.add('popup__submit_disabled');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupKey);
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 function openEditPopup() { 
@@ -116,20 +114,20 @@ function addNewCard(evt) {
     name: titleInput.value,
     link: linkInput.value,
   };
-  card.prepend(createCard(cardValue));
+  cardList.prepend(createCard(cardValue));
   closePopup(popupAdd);
   titleInput.value = '';
   linkInput.value = '';
 };
 
-function closePopupKey(evt) {
+function closePopupByEsc(evt) {
   const openPopupClass = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
     closePopup(openPopupClass);
   }
 } 
 
-function clickOverlay(evt) {
+function closeByOverlay(evt) {
   if (evt.target.classList.contains('popup_opened')) {
     closePopup(evt.target);
   }
@@ -137,7 +135,12 @@ function clickOverlay(evt) {
 
 openEditButton.addEventListener('click', openEditPopup);
 openAddButton.addEventListener('click', (settings) => {
-  toggleButtonState(submitBtn, false, settings);
+  const inputList = Array.from(document.querySelectorAll('.popup__info'));
+  const submitBtn = document.querySelector('#create');
+  
+  submitBtn.classList.add('popup__submit_disabled');
+
+  toggleButtonState(submitBtn, inputList, settings);
   openPopup(popupAdd);
 });
 closeEditButton.addEventListener('click', () => closePopup(popupEdit));
@@ -145,6 +148,6 @@ closeAddButton.addEventListener('click', () => closePopup(popupAdd));
 closeImage.addEventListener('click', () => closePopup(popupImage));
 editContainer.addEventListener('submit', handleProfileFormSubmit);
 addContainer.addEventListener('submit', addNewCard);
-popupEdit.addEventListener('click', clickOverlay);
-popupAdd.addEventListener('click', clickOverlay);
-popupImage.addEventListener('click', clickOverlay);
+popupEdit.addEventListener('click', closeByOverlay);
+popupAdd.addEventListener('click', closeByOverlay);
+popupImage.addEventListener('click', closeByOverlay);
