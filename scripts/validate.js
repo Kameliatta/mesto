@@ -1,11 +1,11 @@
 const setEventListeners = (formElement, settings) => {
-  const inputList = formElement.querySelectorAll(settings.inputSelector);
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
   const submitButton = formElement.querySelector(settings.submitButtonSelector);
   
-  Array.from(inputList).forEach(inputElement => {
+  inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, settings);
-      toggleButtonState(submitButton, formElement.checkValidity(), settings);
+      toggleButtonState(submitButton, inputList, settings);
     })
   })
 
@@ -14,13 +14,19 @@ const setEventListeners = (formElement, settings) => {
   })
 }
 
-const toggleButtonState = (buttonElement, isActive, settings)  => {
-  if (isActive) {
-    buttonElement.classList.remove(settings.inactiveButtonClass);
-    buttonElement.removeAttribute('disabled');
-  } else {
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+  return !inputElement.validity.valid;
+  }); 
+}
+
+const toggleButtonState = (buttonElement, inputList, settings)  => {
+  if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(settings.inactiveButtonClass);
     buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove(settings.inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
   }
 }
 
