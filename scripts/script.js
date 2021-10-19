@@ -132,10 +132,10 @@ function closeByOverlay(evt) {
     closePopup(evt.target);
   }
 }
-
+const inputList = Array.from(document.querySelectorAll('.popup__info'));
 openEditButton.addEventListener('click', openEditPopup);
 openAddButton.addEventListener('click', (settings) => {
-  const inputList = Array.from(document.querySelectorAll('.popup__info'));
+  
   const submitBtn = document.querySelector('#create');
   
   submitBtn.classList.add('popup__submit_disabled');
@@ -144,10 +144,24 @@ openAddButton.addEventListener('click', (settings) => {
   openPopup(popupAdd);
 });
 closeEditButton.addEventListener('click', () => closePopup(popupEdit));
-closeAddButton.addEventListener('click', () => closePopup(popupAdd));
+closeAddButton.addEventListener('click', () => {
+  closePopup(popupAdd);
+  clearForm(addContainer);
+});
 closeImage.addEventListener('click', () => closePopup(popupImage));
 editContainer.addEventListener('submit', handleProfileFormSubmit);
 addContainer.addEventListener('submit', addNewCard);
 popupEdit.addEventListener('click', closeByOverlay);
 popupAdd.addEventListener('click', closeByOverlay);
 popupImage.addEventListener('click', closeByOverlay);
+
+function clearForm(form) {
+  const forms = document.querySelectorAll('.popup__field');
+  Array.from(forms).forEach(formElement => {
+    const errorText = formElement.querySelector('.popup__error-text');
+    const input = formElement.querySelector('.popup__info')
+    form.reset();
+    errorText.textContent = '';
+    input.classList.remove('popup__info-error');
+  })
+}
