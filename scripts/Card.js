@@ -1,6 +1,6 @@
 const bigImage = document.querySelector('#big-image');
 const textImage = document.querySelector('#image-text');
-const popupImage = document.querySelector('#open-image')
+const popupImage = document.querySelector('#open-image');
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -36,7 +36,14 @@ export default class Card {
     bigImage.src = this._link;
     textImage.textContent = this._name;
     popupImage.classList.add('popup_opened');
+    document.addEventListener('keydown', this._closePopupByEsc);
   }
+
+  _closePopupByEsc(evt) {
+    if (evt.key === 'Escape') {
+      popupImage.classList.remove('popup_opened');
+    }
+  } 
 
   _addLike() {
     this._element.querySelector('.element__like-button').classList.toggle('active');
