@@ -24,7 +24,9 @@ const bigImage = document.querySelector('#big-image');
 const textImage = document.querySelector('#image-text');
 
 const validationFormEdit = new FormValidator(validationSettings, '#edit-container');
+validationFormEdit.enableValidation();
 const validationFormAdd = new FormValidator(validationSettings, '#add-container');
+validationFormAdd.enableValidation();
 
 initialCards.forEach( (element) => {
   createCard(element);
@@ -84,12 +86,8 @@ function closeByOverlay(evt) {
     closePopup(evt.target);
   }
 }
-openEditButton.addEventListener('click', () => {
-  validationFormEdit.enableValidation();
-  openEditPopup();
-});
+openEditButton.addEventListener('click', openEditPopup);
 openAddButton.addEventListener('click', () => {
-  validationFormAdd.enableValidation();
   validationFormAdd.toggleButtonState(false);
   openPopup(popupAdd);
 });
