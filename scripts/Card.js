@@ -1,12 +1,11 @@
-const bigImage = document.querySelector('#big-image');
-const textImage = document.querySelector('#image-text');
-const popupImage = document.querySelector('#open-image');
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, openPopup, textImage, bigImage) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._openPopup = openPopup;
+    this._bigImage = bigImage;
+    this._textImage = textImage;
   }
 
   _getTemplate() {
@@ -22,35 +21,28 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
+    this._image = this._element.querySelector('.element__image');
 
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = `Изображение ${this._name}`;
+    this._image.src = this._link;
+    this._image.alt = `Изображение ${this._name}`;
     this._element.querySelector('.element__container-text').textContent = this._name;
-    this._element.querySelector('.element__like-button');
-    this._element.querySelector('.element__delete-button');
 
     return this._element;
   }
 
   openImagePopup() {
-    bigImage.src = this._link;
-    textImage.textContent = this._name;
-    popupImage.classList.add('popup_opened');
-    document.addEventListener('keydown', this._closePopupByEsc);
+    this._bigImage.src = this._link;
+    this._textImage.textContent = this._name;
+    this._openPopup();
   }
-
-  _closePopupByEsc(evt) {
-    if (evt.key === 'Escape') {
-      popupImage.classList.remove('popup_opened');
-    }
-  } 
 
   _addLike() {
     this._element.querySelector('.element__like-button').classList.toggle('active');
   }
 
   _removeCard() {
-    this._element.querySelector('.element__delete-button').closest('.element').remove();
+    this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {

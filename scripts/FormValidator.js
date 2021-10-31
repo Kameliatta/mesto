@@ -1,12 +1,4 @@
-const validationSettings = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__info',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  errorClass: 'popup__info-error'
-}
-
-class FormValidator {
+export class FormValidator {
   constructor(settings, formSelector){
     this._settings = settings;
     this._formElement = document.querySelector(formSelector);
@@ -15,6 +7,7 @@ class FormValidator {
   }
   _setEventListeners = () => {
     this._inputList.forEach(inputElement => {
+      this.clearForm(this._formElement, inputElement)
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(this._formElement, inputElement, this._settings);
         this.toggleButtonState(this._submitButton, this._inputList, this._settings);
@@ -61,10 +54,15 @@ class FormValidator {
     }
   }
   
+  clearForm = () => {
+    this._inputList.forEach(inputElement => {
+      const errorText = this._formElement.querySelector(`#${inputElement.id}-error`);
+      this._formElement.reset();
+      this._hideInputError(errorText, inputElement);
+    })
+  }
+
   enableValidation = () => {
-    const form = document.querySelectorAll(this._formSelector);
-    this._setEventListeners(form, this._settings);
+    this._setEventListeners(this._formElement, this._settings);
   }
 }
-
-export {validationSettings, FormValidator};

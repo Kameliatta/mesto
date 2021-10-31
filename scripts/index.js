@@ -1,5 +1,7 @@
 import Card from "./Card.js";
-import {validationSettings, FormValidator} from "./FormValidator.js";
+import {FormValidator} from "./FormValidator.js";
+import {initialCards} from "./initialCards.js";
+import {validationSettings} from "./validationSettings.js"
 
 const popupEdit = document.querySelector('#edit');
 const popupAdd = document.querySelector('#add');
@@ -18,39 +20,21 @@ const profileName = document.querySelector('.profile__name');
 const profileText = document.querySelector('.profile__text');
 const cardList = document.querySelector('.elements');
 const closeImageBtn = document.querySelector('#close-image');
+const bigImage = document.querySelector('#big-image');
+const textImage = document.querySelector('#image-text');
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const validationFormEdit = new FormValidator(validationSettings, '#edit-container');
+const validationFormAdd = new FormValidator(validationSettings, '#add-container');
 
 initialCards.forEach( (element) => {
-  const card = new Card(element, '.element-container_template');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').append(cardElement);
+  createCard(element);
 });
+
+function createCard(element) {
+  const newCard = new Card(element, '.element-container_template', () => openPopup(popupImage), textImage, bigImage);
+  const cardElement = newCard.generateCard();
+  cardList.prepend(cardElement);
+}
 
 function openPopup(popup) { 
   popup.classList.add('popup_opened');
@@ -81,10 +65,8 @@ const renderCard = (evt) => {
   const cardValue = {
     name: titleInput.value,
     link: linkInput.value,
-  };
-  const newCard = new Card(cardValue, '.element-container_template');
-  const cardElement = newCard.generateCard();
-  cardList.prepend(cardElement);
+  };;
+  createCard(cardValue);
   closePopup(popupAdd);
   titleInput.value = '';
   linkInput.value = '';
@@ -103,20 +85,18 @@ function closeByOverlay(evt) {
   }
 }
 openEditButton.addEventListener('click', () => {
-  const validationFormEdit = new FormValidator(validationSettings, '#edit-container');
   validationFormEdit.enableValidation();
   openEditPopup();
 });
 openAddButton.addEventListener('click', () => {
-  const validationFormAdd = new FormValidator(validationSettings, '#add-container');
   validationFormAdd.enableValidation();
   validationFormAdd.toggleButtonState(false);
   openPopup(popupAdd);
 });
 closeEditButton.addEventListener('click', () => closePopup(popupEdit));
 closeAddButton.addEventListener('click', () => {
-  closePopup(popupAdd);
-  clearForm(addContainer);
+  closePopup(popupAdd)
+  validationFormAdd.clearForm();
 });
 closeImageBtn.addEventListener('click', () => closePopup(popupImage));
 editContainer.addEventListener('submit', handleProfileFormSubmit);
@@ -124,14 +104,3 @@ addContainer.addEventListener('submit', renderCard);
 popupEdit.addEventListener('click', closeByOverlay);
 popupAdd.addEventListener('click', closeByOverlay);
 popupImage.addEventListener('click', closeByOverlay);
-
-function clearForm(form) {
-  const forms = document.querySelectorAll('.popup__field');
-  Array.from(forms).forEach(formElement => {
-    const errorText = formElement.querySelector('.popup__error-text');
-    const input = formElement.querySelector('.popup__info')
-    form.reset();
-    errorText.textContent = '';
-    input.classList.remove('popup__info-error');
-  })
-}
