@@ -1,5 +1,3 @@
-import Popup from './Popup.js';
-
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this.name = data.name;
@@ -29,12 +27,6 @@ export default class Card {
 
     return this._element;
   }
-
-  //openImagePopup() {
-    //this._bigImage.src = this.link;
-    //this._textImage.textContent = this.name;
-    //this._openPopup();
-  //}
 
   _addLike() {
     this._element.querySelector('.element__like-button').classList.toggle('active');

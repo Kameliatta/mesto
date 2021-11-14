@@ -1,12 +1,13 @@
-import Card from "./Card.js";
-import {FormValidator} from "./FormValidator.js";
-import {initialCards} from "./utils/initialCards.js";
-import {validationSettings} from "./validationSettings.js";
-import Section from "./Section.js";
-import Popup from "./Popup.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
+import './styles/index.css';
+import Card from "./scripts/components/Card.js";
+import {FormValidator} from "./scripts/components/FormValidator.js";
+import {initialCards} from "./scripts/utils/initialCards.js";
+import {validationSettings} from "./scripts/utils/validationSettings.js";
+import Section from "./scripts/components/Section.js";
+import Popup from "./scripts/components/Popup.js";
+import PopupWithImage from "./scripts/components/PopupWithImage.js";
+import PopupWithForm from "./scripts/components/PopupWithForm.js";
+import UserInfo from "./scripts/components/UserInfo.js";
 import {
   popupAdd,
   popupImage, 
@@ -19,7 +20,7 @@ import {
   profileName,
   profileText,
   saveButton
-} from "./utils/constants.js";
+} from "./scripts/utils/constants.js";
 
 const validationFormEdit = new FormValidator(validationSettings, '#edit-container');
 validationFormEdit.enableValidation();
@@ -36,6 +37,13 @@ const userInfo = new UserInfo({
   nameSelector: '.profile__name', 
   aboutSelector: '.profile__text'
 });
+
+const renderedCard = new Section({
+  items: initialCards,
+  renderer: (element) => renderCard(element)
+}, 
+cardList
+);
 
 function renderProfileInfo () {
   userInfo.setUserInfo({
@@ -65,13 +73,6 @@ function createCard ({name, link}) {
   linkInput.value = '';
 }
 
-const renderedCard = new Section({
-    items: initialCards,
-    renderer: (element) => renderCard(element)
-  }, 
-  cardList
-);
-
 function renderCard(element) {
   const newCard = new Card(element, '.element-container_template', handleCardClick);
   const cardElement = newCard.generateCard();
@@ -94,8 +95,15 @@ function openEditPopup() {
   editPopup.open();
 }
 
+function clearForm() {
+  validationFormAdd.clearForm();
+}
+
 openEditButton.addEventListener('click', openEditPopup)
-openAddButton.addEventListener('click', openAddPopup);
+openAddButton.addEventListener('click', () => {
+  clearForm();
+  openAddPopup();
+});
 saveButton.addEventListener('click', changeUserInfo);
 editPopup.setEventListeners();
 addPopup.setEventListeners();
