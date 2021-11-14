@@ -1,6 +1,6 @@
 import Popup from './Popup.js';
-import { addContainer } from './utils/constants.js';
-import { inputList } from './utils/constants.js';
+import { addContainer } from '../utils/constants.js';
+import { inputList } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, popupSubmit) {
@@ -18,7 +18,6 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    addContainer.reset();
   }
   
   setEventListeners() {
