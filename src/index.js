@@ -95,13 +95,12 @@ function openEditPopup() {
   editPopup.open();
 }
 
-function clearForm() {
-  validationFormAdd.clearForm();
-}
-
-openEditButton.addEventListener('click', openEditPopup)
+openEditButton.addEventListener('click', () => {
+  validationFormEdit.clearForm();
+  openEditPopup();
+})
 openAddButton.addEventListener('click', () => {
-  clearForm();
+  validationFormAdd.clearForm();
   openAddPopup();
 });
 saveButton.addEventListener('click', changeUserInfo);
