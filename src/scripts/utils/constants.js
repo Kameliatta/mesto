@@ -1,15 +1,10 @@
 export const popupEdit = document.querySelector('#edit');
 export const popupAdd = document.querySelector('#add');
-export const inputList = document.querySelectorAll('.popup__info');
 export const popupImage = document.querySelector('#open-image');
 export const openEditButton = document.querySelector('.profile__edit-button');
 export const openAddButton = document.querySelector('.profile__add-button');
-export const addContainer = document.querySelector('#add-container');
 export const profileName = document.querySelector('#name');
 export const profileText = document.querySelector('#description');
 export const cardList = '.elements';
-export const bigImage = document.querySelector('#big-image');
-export const textImage = document.querySelector('#image-text');
 export const titleInput = document.querySelector('#title');
 export const linkInput = document.querySelector('#link');
-export const saveButton = document.querySelector('#save');

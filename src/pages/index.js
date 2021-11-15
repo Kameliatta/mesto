@@ -1,13 +1,12 @@
-import './styles/index.css';
-import Card from "./scripts/components/Card.js";
-import {FormValidator} from "./scripts/components/FormValidator.js";
-import {initialCards} from "./scripts/utils/initialCards.js";
-import {validationSettings} from "./scripts/utils/validationSettings.js";
-import Section from "./scripts/components/Section.js";
-import Popup from "./scripts/components/Popup.js";
-import PopupWithImage from "./scripts/components/PopupWithImage.js";
-import PopupWithForm from "./scripts/components/PopupWithForm.js";
-import UserInfo from "./scripts/components/UserInfo.js";
+import './index.css';
+import Card from "../scripts/components/Card.js";
+import {FormValidator} from "../scripts/components/FormValidator.js";
+import {initialCards} from "../scripts/utils/initialCards.js";
+import {validationSettings} from "../scripts/utils/validationSettings.js";
+import Section from "../scripts/components/Section.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import UserInfo from "../scripts/components/UserInfo.js";
 import {
   popupAdd,
   popupImage, 
@@ -18,9 +17,8 @@ import {
   openEditButton,
   popupEdit,
   profileName,
-  profileText,
-  saveButton
-} from "./scripts/utils/constants.js";
+  profileText
+} from "../scripts/utils/constants.js";
 
 const validationFormEdit = new FormValidator(validationSettings, '#edit-container');
 validationFormEdit.enableValidation();
@@ -31,7 +29,7 @@ const popupWithImage = new PopupWithImage(popupImage);
 
 const addPopup = new PopupWithForm(popupAdd, createCard);
 
-const editPopup = new Popup(popupEdit);
+const editPopup = new PopupWithForm(popupEdit, changeUserInfo);
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name', 
@@ -50,7 +48,6 @@ function renderProfileInfo () {
     name: "Жак-Ив Кусто",
     description: "Исследователь океана"
   });
-  userInfo.updateUserInfo();
 }
 
 function changeUserInfo() {
@@ -58,16 +55,14 @@ function changeUserInfo() {
     name: profileName.value,
     description: profileText.value
   })
-  userInfo.updateUserInfo();
 
   editPopup.close();
 }
 
-function createCard ({name, link}) {
-  renderCard({
-    name: name, 
-    link: link
-  });
+function createCard (data) {
+  const newCard = new Card(data, '.element-container_template', handleCardClick);
+  renderedCard.addItem(newCard.generateCard());
+  
   addPopup.close();
   titleInput.value = '';
   linkInput.value = '';
@@ -89,8 +84,10 @@ function openAddPopup() {
 }
 
 function openEditPopup() { 
-  profileName.value = userInfo.getUserInfo().name;
-  profileText.value = userInfo.getUserInfo().description;
+  const userData = userInfo.getUserInfo();
+
+  profileName.value = userData.name;
+  profileText.value = userData.description;
 
   editPopup.open();
 }
@@ -103,7 +100,6 @@ openAddButton.addEventListener('click', () => {
   validationFormAdd.clearForm();
   openAddPopup();
 });
-saveButton.addEventListener('click', changeUserInfo);
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 popupWithImage.setEventListeners();
