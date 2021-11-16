@@ -12,8 +12,6 @@ import {
   popupImage, 
   cardList,
   openAddButton,
-  titleInput,
-  linkInput,
   openEditButton,
   popupEdit,
   profileName,
@@ -27,7 +25,7 @@ validationFormAdd.enableValidation();
 
 const popupWithImage = new PopupWithImage(popupImage);
 
-const addPopup = new PopupWithForm(popupAdd, createCard);
+const addPopup = new PopupWithForm(popupAdd, handleCardFormSubmit);
 
 const editPopup = new PopupWithForm(popupEdit, changeUserInfo);
 
@@ -59,19 +57,19 @@ function changeUserInfo() {
   editPopup.close();
 }
 
-function createCard (data) {
-  const newCard = new Card(data, '.element-container_template', handleCardClick);
-  renderedCard.addItem(newCard.generateCard());
-  
-  addPopup.close();
-  titleInput.value = '';
-  linkInput.value = '';
+function createCard(element) {
+  const card = new Card(element, '.element-container_template', handleCardClick);
+  return card.generateCard();
 }
 
 function renderCard(element) {
-  const newCard = new Card(element, '.element-container_template', handleCardClick);
-  const cardElement = newCard.generateCard();
-  renderedCard.addItem(cardElement);
+  renderedCard.addItem(createCard(element));
+}
+
+function handleCardFormSubmit(element) {
+  renderCard(element);
+  
+  addPopup.close();
 }
 
 function handleCardClick(name, link) {
