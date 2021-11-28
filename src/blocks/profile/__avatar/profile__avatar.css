@@ -1,6 +1,7 @@
 .profile__avatar {
   border-radius: 50%;
   height: 120px;
+  width: 120px;
 }
 @media screen and (max-width: 768px) {
   .profile__avatar {
@@ -13,4 +14,8 @@
     width: 120px;
     height: 120px;
   }
+}
+
+.profile__avatar:hover ~ .profile__avatar-button {
+  display: block;
 }
