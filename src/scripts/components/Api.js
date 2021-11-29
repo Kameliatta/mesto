@@ -17,9 +17,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => {
-        return this._getResponseData(res);
-      })
+      .then(this._getResponseData)
   }
 
   getCardsInfo() {
@@ -27,9 +25,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => {
-        return this._getResponseData(res);
-      })
+      .then(this._getResponseData)
       .then((result) => {
         return result
       })
@@ -41,9 +37,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-      .then(res => {
-        return this._getResponseData(res);
-      })
+      .then(this._getResponseData)
   }
 
   clickLike(cardId, method, urlData) {
@@ -51,9 +45,7 @@ export default class Api {
       method: method,
       headers: this._headers
     })
-      .then(res => {
-        return this._getResponseData(res);
-      })
+      .then(this._getResponseData)
   }
 
   deleteCard(cardId, method, urlData) {
@@ -61,8 +53,6 @@ export default class Api {
       method: method,
       headers: this._headers
     })
-      .then(res => {
-        return this._getResponseData(res);
-      })
+      .then(this._getResponseData)
   }
 }
