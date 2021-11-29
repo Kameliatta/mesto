@@ -28,7 +28,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._displayLikes();
-    this._deleteButton = Array.from(this._element.querySelectorAll('.element__delete-button'));
+    this._deleteButton = this._element.querySelector('.element__delete-button');
     this._checkCardsOwner();
     this._image = this._element.querySelector('.element__image');
     this._numberOfLikes = this._element.querySelector('.element__like-button_count');
@@ -69,9 +69,7 @@ export default class Card {
 
   _checkCardsOwner() {
     if(this._ownerId === this._actualUserId) {
-      this._deleteButton.forEach(deleteButton => {
-        deleteButton.classList.add('active_button');
-      })
+      this._deleteButton.classList.add('active_button')
     }
   }
 
